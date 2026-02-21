@@ -1,6 +1,10 @@
-# QUICK START GUIDE - Inderbara WhatsApp Clone
+# ⚡ Quick Start - Inderbara Chat
 
-## ✅ What's Complete
+Welcome to **Inderbara Chat** - a blazing-fast real-time messaging platform built with Django and WebSockets!
+
+Get up and running in **5 minutes**.
+
+## ✅ What You Get
 
 The project has been fully generated with:
 
