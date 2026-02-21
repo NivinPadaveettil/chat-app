@@ -1,125 +1,120 @@
+
 {% extends "base.html" %}
 {% load static %}
 
 {% block content %}
-<div class="flex h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+<div class="flex h-screen bg-gray-900">
     <!-- Sidebar -->
-    <div id="sidebar" class="w-96 flex flex-col bg-slate-900/80 backdrop-blur-xl border-r border-slate-700/50 transition-all duration-300 sm:w-full sm:absolute sm:inset-y-0 sm:left-0 sm:z-40 shadow-2xl">
+    <div id="sidebar" class="w-80 flex flex-col bg-gray-950 border-r border-emerald-500/20 transition-all duration-300 sm:w-full sm:absolute sm:inset-y-0 sm:left-0 sm:z-40">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 p-6 text-white">
+        <div class="bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 p-4 text-white">
             <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="text-2xl font-bold">💬 Chat</h1>
-                    <p class="text-xs text-blue-100 mt-1">Real-time messaging</p>
-                </div>
-                <button id="close-sidebar" class="sm:inline hidden text-white hover:bg-white/10 p-2 rounded-lg transition">
+                <h1 class="text-xl font-bold">Inderbara Chat</h1>
+                <button id="close-sidebar" class="sm:inline hidden text-white hover:bg-white/20 p-2 rounded-lg">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
         </div>
 
         <!-- Tab Buttons -->
-        <div class="flex gap-2 p-4 border-b border-slate-700/30">
-            <button id="rooms-tab-btn" class="flex-1 py-2 px-3 text-center font-semibold text-slate-400 hover:text-slate-100 transition rounded-lg hover:bg-slate-800/50" onclick="showRoomsTab()">
-                <i class="fas fa-comment text-sm mr-2"></i>Recent
+        <div class="flex gap-0 border-b border-emerald-500/20">
+            <button id="rooms-tab-btn" class="flex-1 py-3 px-4 text-center font-semibold text-gray-400 hover:text-emerald-400 transition" onclick="showRoomsTab()">
+                <i class="fas fa-comments mr-2"></i>Chats
             </button>
-            <button id="users-tab-btn" class="flex-1 py-2 px-3 text-center font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg" onclick="showUsersTab(true)">
-                <i class="fas fa-users text-sm mr-2"></i>People
+            <button id="users-tab-btn" class="flex-1 py-3 px-4 text-center font-semibold text-emerald-400 border-b-2 border-emerald-500 bg-gray-900/50" onclick="showUsersTab(true)">
+                <i class="fas fa-users mr-2"></i>Users
             </button>
         </div>
 
         <!-- Rooms Tab -->
-        <div id="rooms-container" class="flex-1 overflow-y-auto hidden p-3">
-            <div id="rooms-list" class="space-y-2">
-                <div class="text-center text-slate-500 text-sm py-8">
-                    <i class="fas fa-inbox text-2xl mb-2 opacity-50"></i>
-                    <p>No recent chats</p>
-                </div>
+        <div id="rooms-container" class="flex-1 overflow-y-auto hidden">
+            <div id="rooms-list" class="space-y-1 p-2">
+                <div class="text-center text-gray-500 text-sm py-8">No chats yet</div>
             </div>
         </div>
 
         <!-- Users Tab -->
-        <div id="users-container" class="flex-1 overflow-y-auto p-3">
-            <div id="users-list" class="space-y-2">
-                <div class="text-center text-slate-500 text-sm py-8">
-                    <div class="animate-spin mx-auto mb-2">
-                        <i class="fas fa-circle-notch text-lg"></i>
-                    </div>
-                    <p>Loading contacts...</p>
-                </div>
+        <div id="users-container" class="flex-1 overflow-y-auto">
+            <div id="users-list" class="space-y-1 p-2">
+                <div class="text-center text-gray-500 text-sm py-8">Loading users...</div>
             </div>
         </div>
 
-        <!-- Footer -->
-        <div class="border-t border-slate-700/30 p-4 space-y-2">
-            <button id="profile-btn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-lg" onclick="openProfileModal()">
-                <i class="fas fa-user-circle mr-2"></i>My Profile
+        <!-- Profile Button -->
+        <div class="border-t border-emerald-500/20 p-3">
+            <button id="profile-btn" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold py-2 px-4 rounded-lg transition" onclick="openProfileModal()">
+                <i class="fas fa-user-circle mr-2"></i>Profile
             </button>
         </div>
     </div>
 
     <!-- Main Chat Area -->
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1 flex flex-col bg-gray-900">
         <!-- Header -->
-        <div class="bg-slate-900/50 backdrop-blur-xl border-b border-slate-700/50 px-6 py-4 flex justify-between items-center shadow-sm">
-            <div class="flex items-center gap-4 flex-1">
-                <button id="menu-btn" class="sm:inline hidden text-slate-400 hover:text-white p-2 hover:bg-slate-800 rounded-lg transition">
-                    <i class="fas fa-bars text-lg"></i>
-                </button>
-                <div id="chat-header" class="flex-1">
-                    <h2 id="chat-title" class="text-lg font-bold text-white">Select a contact</h2>
-                    <p id="chat-status" class="text-xs text-slate-400">Ready to chat</p>
-                </div>
+        <div class="bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white p-4 shadow-lg flex justify-between items-center">
+            <button id="menu-btn" class="sm:inline hidden text-white hover:bg-white/20 p-2 rounded-lg mr-2">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div id="chat-header" class="flex-1">
+                <h2 id="chat-title" class="text-xl font-bold">Select a chat</h2>
+                <p id="chat-status" class="text-xs text-emerald-100">Online</p>
             </div>
+            <button onclick="toggleProfileModal()" class="hover:bg-white/20 p-2 rounded-lg">
+                <i class="fas fa-phone-alt mr-1"></i>
+            </button>
         </div>
 
         <!-- Chat Messages Area -->
-        <div id="chat-container" class="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth">
-            <div class="text-center text-slate-400 py-16">
-                <div class="text-6xl mb-4 opacity-20">💬</div>
-                <p class="text-lg font-semibold">Select a contact to start chatting</p>
-                <p class="text-xs text-slate-500 mt-2">Your messages are always secure and private</p>
+        <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-900 scroll-smooth">
+            <div class="text-center text-gray-500 text-sm py-12">
+                <i class="fas fa-comment-dots text-4xl mb-3 opacity-50"></i>
+                <p>Select a user to start chatting</p>
+                <p class="text-xs text-gray-600 mt-4">Quick tips: Press Enter to send, Shift+Enter for new line</p>
             </div>
         </div>
 
         <!-- Notification Toast -->
-        <div id="notification-toast" class="hidden fixed bottom-6 right-6 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 z-50 animate-slideInUp">
+        <div id="notification-toast" class="hidden fixed bottom-4 right-4 bg-emerald-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 z-50 animate-slideInUp">
             <i id="notification-icon" class="fas fa-check-circle"></i>
             <span id="notification-text">Message sent!</span>
-            <button onclick="closeNotification()" class="ml-2 text-white/70 hover:text-white">
+            <button onclick="closeNotification()" class="ml-4 text-white hover:text-gray-200">
                 <i class="fas fa-times"></i>
             </button>
         </div>
 
         <!-- Message Input Area -->
-        <div id="input-area" class="border-t border-slate-700/50 bg-slate-900/50 backdrop-blur-xl p-6 hidden">
-            <div class="flex gap-3 items-end max-w-6xl">
-                <!-- Action Buttons -->
-                <div class="flex gap-2">
-                    <button id="file-btn" class="bg-slate-800 hover:bg-slate-700 text-blue-400 hover:text-blue-300 p-3 rounded-full transition" onclick="document.getElementById('file-input').click()" title="Send file">
+        <div id="input-area" class="border-t border-emerald-500/20 bg-gray-950 p-4 hidden">
+            <div class="flex gap-3 items-end">
+                <div class="flex gap-1">
+                    <button id="file-btn" class="flex-shrink-0 bg-gray-800 hover:bg-gray-700 text-emerald-400 p-3 rounded-full transition relative group" onclick="document.getElementById('file-input').click()" title="Send file (Ctrl+Shift+F)">
                         <i class="fas fa-paperclip text-lg"></i>
-                        <input type="file" id="file-input" style="display: none;" onchange="handleFileUpload()" />
+                        <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none">Send File</div>
                     </button>
+                    <input type="file" id="file-input" style="display: none;" onchange="handleFileUpload()" />
 
-                    <button id="camera-btn" class="bg-slate-800 hover:bg-slate-700 text-purple-400 hover:text-purple-300 p-3 rounded-full transition" onclick="openCameraModal()" title="Take photo">
+                    <button id="camera-btn" class="flex-shrink-0 bg-gray-800 hover:bg-gray-700 text-emerald-400 p-3 rounded-full transition relative group" onclick="openCameraModal()" title="Take photo (Ctrl+Shift+C)">
                         <i class="fas fa-camera text-lg"></i>
+                        <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none">Camera</div>
                     </button>
 
-                    <button id="emoji-btn" class="bg-slate-800 hover:bg-slate-700 text-yellow-400 hover:text-yellow-300 p-3 rounded-full transition" onclick="toggleEmojiPicker()" title="Add emoji">
+                    <button id="emoji-btn" class="flex-shrink-0 bg-gray-800 hover:bg-gray-700 text-emerald-400 p-3 rounded-full transition relative group" onclick="toggleEmojiPicker()" title="Add emoji (Ctrl+Shift+E)">
                         <i class="fas fa-smile text-lg"></i>
+                        <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none">Emojis</div>
                     </button>
                 </div>
 
-                <!-- Input Field -->
                 <div class="flex-1 relative">
-                    <input id="message-input" type="text" class="w-full bg-slate-800 text-white placeholder-slate-500 rounded-full px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="Message..." onkeypress="handleKeyPress(event)" oninput="handleTyping()" />
-                    <span id="char-count" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-slate-500 hidden"></span>
+                    <input id="message-input" type="text" class="w-full bg-gray-800 text-white placeholder-gray-500 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Type a message... (Enter to send)" onkeypress="handleKeyPress(event)" oninput="handleTyping()" />
+                    <span id="char-count" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 hidden"></span>
                 </div>
 
-                <!-- Send Button -->
-                <button id="send-btn" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-3 rounded-full transition font-bold" onclick="sendMessage()" title="Send message">
+                <button id="send-btn" class="flex-shrink-0 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white p-3 rounded-full transition font-bold relative group" onclick="sendMessage()" title="Send message (Enter)">
                     <i class="fas fa-paper-plane text-lg"></i>
+                    <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none">Send (Enter)</div>
                 </button>
+            </div>
+            <div class="text-xs text-gray-500 mt-2 text-center">
+                <span id="input-help">Type your message and press Enter to send</span>
             </div>
         </div>
     </div>
@@ -127,52 +122,51 @@
 
 <!-- Profile Modal -->
 <div id="profile-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-    <div class="bg-gradient-to-br from-slate-900 to-slate-950 rounded-2xl p-8 w-96 max-w-full shadow-2xl border border-slate-700/50">
-        <h3 class="text-2xl font-bold text-white mb-6">
-            <i class="fas fa-user-circle text-blue-500 mr-2"></i>Profile
+    <div class="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl p-8 w-96 max-w-full shadow-2xl border border-emerald-500/20">
+        <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+            <i class="fas fa-user-circle text-emerald-500 mr-3 text-3xl"></i>Edit Profile
         </h3>
 
-        <div class="space-y-5">
+        <div class="space-y-4">
             <!-- Avatar Upload -->
             <div class="text-center">
-                <img id="profile-avatar" src="/static/images/default-avatar.jpg" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-blue-500 cursor-pointer hover:border-purple-500 transition object-cover" onclick="document.getElementById('avatar-input').click()" />
+                <img id="profile-avatar" src="/static/images/default-avatar.jpg" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-emerald-500 cursor-pointer hover:border-teal-500 transition" onclick="document.getElementById('avatar-input').click()" />
                 <input type="file" id="avatar-input" style="display: none;" accept="image/*" onchange="handleAvatarUpload()" />
-                <p class="text-sm text-slate-400">Click to change avatar</p>
+                <p class="text-sm text-gray-400">Click to change avatar</p>
             </div>
 
             <!-- Status Input -->
             <div>
-                <label class="block text-sm font-semibold text-slate-300 mb-2">Status</label>
-                <input id="status-input" type="text" class="w-full bg-slate-800 text-white placeholder-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="What's on your mind?" maxlength="255" />
+                <label class="block text-sm font-semibold text-emerald-400 mb-2">Status</label>
+                <input id="status-input" type="text" class="w-full bg-gray-800 text-white placeholder-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Enter your status..." maxlength="255" />
             </div>
 
-            <!-- Buttons -->
-            <div class="flex gap-3">
-                <button onclick="saveProfile()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">
-                    <i class="fas fa-save mr-2"></i>Save
-                </button>
+            <!-- Save Button -->
+            <button onclick="saveProfile()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-3 px-4 rounded-lg transition">
+                <i class="fas fa-save mr-2"></i>Save Changes
+            </button>
 
-                <button onclick="closeProfileModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 px-4 rounded-lg transition">
-                    Close
-                </button>
-            </div>
+            <!-- Close Button -->
+            <button onclick="closeProfileModal()" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+                Close
+            </button>
         </div>
     </div>
 </div>
 
 <!-- Camera Modal -->
 <div id="camera-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-    <div class="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50 w-96 max-w-full">
-        <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-4 font-bold">
+    <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-emerald-500/20 w-96 max-w-full">
+        <div class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-4 font-bold">
             <i class="fas fa-camera mr-2"></i>Take a Photo
         </div>
-        <div class="p-4 bg-slate-950">
+        <div class="p-4 bg-gray-950">
             <video id="camera-feed" class="w-full rounded-lg bg-black mb-4" style="transform: scaleX(-1);"></video>
             <div class="flex gap-3">
-                <button onclick="capturePhoto()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 rounded-lg transition">
+                <button onclick="capturePhoto()" class="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-3 rounded-lg transition">
                     <i class="fas fa-camera mr-2"></i>Capture
                 </button>
-                <button onclick="closeCameraModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition">
+                <button onclick="closeCameraModal()" class="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition">
                     Cancel
                 </button>
             </div>
@@ -181,10 +175,10 @@
 </div>
 
 <!-- Emoji Picker Modal -->
-<div id="emoji-picker-modal" class="hidden fixed bottom-28 left-6 bg-slate-900/95 backdrop-blur-xl rounded-2xl p-4 shadow-2xl border border-slate-700/50 z-40" style="width: 320px; max-height: 400px; overflow-y-auto;">
-    <div class="text-white font-bold text-lg mb-4 flex justify-between items-center">
-        <span>😀 Emojis</span>
-        <button onclick="toggleEmojiPicker()" class="text-slate-400 hover:text-white transition">
+<div id="emoji-picker-modal" class="hidden fixed bottom-24 left-4 bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl p-4 shadow-2xl border border-emerald-500/20 z-40" style="width: 300px; max-height: 400px; overflow-y-auto;">
+    <div class="text-white font-bold text-lg mb-3 flex justify-between items-center">
+        <span>Emojis</span>
+        <button onclick="toggleEmojiPicker()" class="text-gray-400 hover:text-white">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -238,12 +232,12 @@ function showRoomsTab() {
     if (roomsContainer) roomsContainer.classList.remove('hidden');
     if (usersContainer) usersContainer.classList.add('hidden');
     if (roomsTabBtn) {
-        roomsTabBtn.classList.add('bg-slate-800/50', 'text-slate-100');
-        roomsTabBtn.classList.remove('text-slate-400');
+        roomsTabBtn.classList.add('text-emerald-400', 'border-emerald-500', 'bg-gray-900/50');
+        roomsTabBtn.classList.remove('text-gray-400');
     }
     if (usersTabBtn) {
-        usersTabBtn.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-purple-600');
-        usersTabBtn.classList.add('text-slate-400');
+        usersTabBtn.classList.remove('text-emerald-400', 'border-emerald-500', 'bg-gray-900/50');
+        usersTabBtn.classList.add('text-gray-400');
     }
 }
 
@@ -257,13 +251,14 @@ function showUsersTab(shouldReloadUsers = false) {
     if (usersContainer) usersContainer.classList.remove('hidden');
     if (roomsContainer) roomsContainer.classList.add('hidden');
     if (usersTabBtn) {
-        usersTabBtn.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-purple-600');
-        usersTabBtn.classList.remove('text-slate-400');
+        usersTabBtn.classList.add('text-emerald-400', 'border-emerald-500', 'bg-gray-900/50');
+        usersTabBtn.classList.remove('text-gray-400');
     }
     if (roomsTabBtn) {
-        roomsTabBtn.classList.remove('bg-slate-800/50', 'text-slate-100');
-        roomsTabBtn.classList.add('text-slate-400');
+        roomsTabBtn.classList.remove('text-emerald-400', 'border-emerald-500', 'bg-gray-900/50');
+        roomsTabBtn.classList.add('text-gray-400');
     }
+    // Only reload users if explicitly requested (not on initial page load)
     if (shouldReloadUsers) {
         loadUsers();
     }
@@ -272,40 +267,53 @@ function showUsersTab(shouldReloadUsers = false) {
 // Load users list
 async function loadUsers() {
     try {
+        console.log('Fetching users from /api/user-list/...');
         const resp = await fetch('/api/user-list/', { credentials: 'include' });
-        if (!resp.ok) throw new Error(`HTTP error! status: ${resp.status}`);
+        console.log('Response status:', resp.status);
+        
+        if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+        }
         
         const data = await resp.json();
+        console.log('Users data received:', data);
+        
         const usersList = document.getElementById('users-list');
-        if (!usersList) return;
+        if (!usersList) {
+            console.error('users-list element not found');
+            return;
+        }
         
         usersList.innerHTML = '';
 
         if (!data.users || data.users.length === 0) {
-            usersList.innerHTML = '<div class="text-center text-slate-500 text-sm py-8">No users found</div>';
+            console.warn('No users found in response');
+            usersList.innerHTML = '<div class="text-center text-gray-500 text-sm py-8">No users found</div>';
             return;
         }
 
+        console.log(`Processing ${data.users.length} users...`);
         for (const user of data.users) {
+            console.log(`Adding user: ${user.username} (ID: ${user.id})`);
             users[user.id] = user;
-            const isOnline = user.is_online ? 'bg-green-500' : 'bg-slate-500';
+            const isOnline = user.is_online ? 'bg-emerald-500' : 'bg-gray-500';
             const avatar = user.avatar || '/static/images/default-avatar.jpg';
             const username = user.username || 'Unknown';
             const status = user.status || 'Available';
             
             const item = document.createElement('div');
-            item.className = 'bg-slate-800/50 hover:bg-slate-700/50 rounded-xl p-3 cursor-pointer transition border border-slate-700/30 hover:border-blue-500/50';
+            item.className = 'bg-gray-800 hover:bg-gray-700 rounded-lg p-3 cursor-pointer transition border border-gray-700/50 hover:border-emerald-500/50';
             item.dataset.userId = user.id;
             item.dataset.userData = JSON.stringify(user);
             item.innerHTML = `
                 <div class="flex items-center gap-3">
                     <div class="relative flex-shrink-0">
-                        <img src="${avatar}" alt="${username}" onerror="this.src='/static/images/default-avatar.jpg'" class="w-12 h-12 rounded-full object-cover border-2 border-slate-600" />
-                        <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full ${isOnline} border-2 border-slate-900"></div>
+                        <img src="${avatar}" alt="${username}" onerror="this.src='/static/images/default-avatar.jpg'" class="w-12 h-12 rounded-full object-cover border-2 border-gray-600" />
+                        <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full ${isOnline} border-2 border-gray-800"></div>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <h4 class="font-semibold text-white text-sm truncate">${username}</h4>
-                        <p class="text-xs text-slate-400 truncate">${status}</p>
+                        <h4 class="font-semibold text-white text-sm">${username}</h4>
+                        <p class="text-xs text-gray-400 truncate">${status}</p>
                     </div>
                 </div>
             `;
@@ -316,8 +324,13 @@ async function loadUsers() {
             });
             usersList.appendChild(item);
         }
+        console.log(`✅ Successfully loaded ${data.users.length} users`);
     } catch (err) {
         console.error('Error loading users:', err);
+        const usersList = document.getElementById('users-list');
+        if (usersList) {
+            usersList.innerHTML = `<div class="text-center text-red-400 text-sm py-8">⚠️ Error: ${err.message}</div>`;
+        }
     }
 }
 
@@ -325,6 +338,8 @@ async function loadUsers() {
 async function selectUser(userId, userData) {
     currentUserId = userId;
     
+    // Hide sidebar on mobile
+    const sidebar = document.getElementById('sidebar');
     if (window.innerWidth < 768 && sidebar) {
         sidebar.style.display = 'none';
     }
@@ -336,12 +351,19 @@ async function selectUser(userId, userData) {
         const data = await resp.json();
         currentRoom = data.room_name;
         
+        console.log(`🎯 ROOM SELECTION: Selected user ${data.other_username} (ID: ${userId})`);
+        console.log(`📌 Assigned room name: ${currentRoom}`);
+        
+        // Connect WebSocket
         connectWebSocket(currentRoom);
+        
+        // Load messages
         await loadRoomMessages();
         
+        // Update header
         const avatar = userData.avatar || '/static/images/default-avatar.jpg';
         const username = userData.username || 'Unknown User';
-        const status = userData.is_online ? '🟢 Online' : '⚫ Away';
+        const status = userData.is_online ? '🟢 Online' : '⚫ Offline';
         
         document.getElementById('chat-title').textContent = username;
         document.getElementById('chat-status').textContent = status;
@@ -351,18 +373,18 @@ async function selectUser(userId, userData) {
         // Show rooms tab with updated list
         const roomsList = document.getElementById('rooms-list');
         const roomItem = document.createElement('div');
-        roomItem.className = 'bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:from-blue-600/30 hover:to-purple-600/30 rounded-xl p-3 cursor-pointer transition border border-blue-500/30';
+        roomItem.className = 'bg-gray-800 hover:bg-gray-700 rounded-lg p-3 cursor-pointer transition border border-emerald-500';
         roomItem.dataset.userId = userId;
         roomItem.dataset.userData = JSON.stringify(userData);
         roomItem.innerHTML = `
             <div class="flex items-center gap-3">
                 <div class="relative flex-shrink-0">
-                    <img src="${avatar}" alt="${username}" class="w-12 h-12 rounded-full object-cover border-2 border-blue-500" onerror="this.src='/static/images/default-avatar.jpg'" />
-                    <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full ${userData.is_online ? 'bg-green-500' : 'bg-slate-500'} border-2 border-slate-900"></div>
+                    <img src="${avatar}" alt="${username}" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-500" onerror="this.src='/static/images/default-avatar.jpg'" />
+                    <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full ${userData.is_online ? 'bg-emerald-500' : 'bg-gray-500'} border-2 border-gray-800"></div>
                 </div>
                 <div class="flex-1">
                     <h4 class="font-semibold text-white">${username}</h4>
-                    <p class="text-xs text-slate-400">${userData.last_message || 'Start a conversation'}</p>
+                    <p class="text-xs text-gray-400">${userData.last_message || 'No messages'}</p>
                 </div>
             </div>
         `;
@@ -374,9 +396,12 @@ async function selectUser(userId, userData) {
         roomsList.innerHTML = '';
         roomsList.appendChild(roomItem);
         
+        // Switch to rooms tab
         showRoomsTab();
+        console.log(`✅ Selected user: ${username}`);
     } catch (err) {
         console.error('Error selecting user:', err);
+        alert('Error opening chat');
     }
 }
 
@@ -384,26 +409,43 @@ async function selectUser(userId, userData) {
 function connectWebSocket(roomName) {
     if (ws) {
         ws.close();
+        console.log('Previous WebSocket closed');
     }
     
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//${window.location.host}/ws/chat/${roomName}/`;
+    console.log(`🔌 Connecting to WebSocket: ${wsUrl}`);
+    console.log(`📍 Room name: ${roomName}`);
     
     ws = new WebSocket(wsUrl);
     
     ws.onopen = () => {
-        console.log('✅ Connected');
+        console.log('✅ WebSocket connected to room:', roomName);
     };
     
     ws.onmessage = (event) => {
         try {
             const data = JSON.parse(event.data);
+            console.log(`📩 RECEIVED: type=${data.type}, sender=${data.sender} (ID: ${data.sender_id}), currentUser=${currentUser}, room=${currentRoom}`);
+            console.log(`   Content: "${data.content?.substring(0, 50)}"`);
             
-            if (data.type === 'chat_message' || data.type === 'media_message') {
+            if (data.type === 'chat_message') {
+                // Skip duplicates that we already sent and displayed locally
                 if (pendingMessageIds.has(data.message_id)) {
+                    console.log(`  ⏭️  SKIPPING DUPLICATE (already displayed locally)`);
                     pendingMessageIds.delete(data.message_id);
                     return;
                 }
+                console.log('✅ DISPLAYING MESSAGE FROM:', data.sender);
+                displayMessage(data);
+            } else if (data.type === 'media_message') {
+                // Skip duplicates
+                if (pendingMessageIds.has(data.message_id)) {
+                    console.log(`  ⏭️  SKIPPING DUPLICATE MEDIA`);
+                    pendingMessageIds.delete(data.message_id);
+                    return;
+                }
+                console.log('✅ DISPLAYING MEDIA FROM:', data.sender);
                 displayMessage(data);
             } else if (data.type === 'typing_indicator') {
                 showTypingIndicator(data.sender, data.is_typing);
@@ -411,18 +453,25 @@ function connectWebSocket(roomName) {
                 updateUserStatus(data.sender, data.is_online);
             }
         } catch (err) {
-            console.error('Error:', err);
+            console.error('Error processing WebSocket message:', err, event.data);
         }
     };
     
     ws.onerror = (err) => {
-        console.error('❌ Error:', err);
+        console.error('❌ WebSocket error:', err);
+    };
+    
+    ws.onclose = () => {
+        console.log('WebSocket closed');
     };
 }
 
 // Load room messages
 async function loadRoomMessages() {
-    if (!currentRoom) return;
+    if (!currentRoom) {
+        console.warn('No current room selected');
+        return;
+    }
     
     try {
         const resp = await fetch(`/api/room/${currentRoom}/messages/`, { credentials: 'include' });
@@ -436,12 +485,15 @@ async function loadRoomMessages() {
             for (const msg of data.messages) {
                 displayMessage(msg);
             }
+            console.log(`✅ Loaded ${data.messages.length} messages`);
         } else {
-            chatContainer.innerHTML = '<div class="text-center text-slate-400 py-16"><div class="text-4xl mb-3 opacity-20">💬</div><p>No messages yet. Say hello!</p></div>';
+            chatContainer.innerHTML = '<div class="text-center text-gray-500 text-sm py-12"><i class="fas fa-comments opacity-50 text-4xl mb-3"></i><p>No messages yet. Start the conversation!</p></div>';
         }
         chatContainer.scrollTop = chatContainer.scrollHeight;
     } catch (err) {
-        console.error('Error:', err);
+        console.error('Error loading messages:', err);
+        const chatContainer = document.getElementById('chat-container');
+        chatContainer.innerHTML = `<div class="text-center text-red-400 text-sm py-12">Error loading messages: ${err.message}</div>`;
     }
 }
 
@@ -463,21 +515,21 @@ function displayMessage(msg) {
     
     let content = msg.content;
     if (msg.is_media && msg.media_file) {
-        content = `<a href="${msg.media_file}" target="_blank" class="bg-blue-500/20 border border-blue-500/50 rounded-lg p-2 inline-flex items-center gap-2 hover:bg-blue-500/30 transition"><i class="fas fa-download text-sm"></i>Download</a>`;
+        content = `<a href="${msg.media_file}" target="_blank" class="bg-emerald-500/20 border border-emerald-500/50 rounded-lg p-2 inline-flex items-center gap-2 hover:bg-emerald-500/30"><i class="fas fa-download"></i>Download</a>`;
     } else {
         const safeContent = (msg.content || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        content = `<div class="text-white break-words max-w-xs leading-relaxed">${safeContent}</div>`;
+        content = `<div class="text-white break-words max-w-xs">${safeContent}</div>`;
     }
     
     messageDiv.innerHTML = `
-        <div class="flex gap-2 max-w-md ${isOwn ? 'flex-row-reverse' : ''}">
+        <div class="flex gap-2 ${isOwn ? 'flex-row-reverse' : ''}">
             <img src="${avatar}" alt="${sender}" onerror="this.src='/static/images/default-avatar.jpg'" class="w-8 h-8 rounded-full object-cover flex-shrink-0" />
             <div class="flex flex-col ${isOwn ? 'items-end' : 'items-start'}">
-                <div class="text-xs text-slate-400 mb-1">${sender}</div>
-                <div class="${isOwn ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-3xl rounded-tr-none' : 'bg-slate-800 text-slate-100 rounded-3xl rounded-tl-none'} px-4 py-2.5 shadow-lg">
+                <div class="text-xs text-gray-400 mb-1">${sender}</div>
+                <div class="${isOwn ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-3xl rounded-tr-lg' : 'bg-gray-800 text-gray-200 rounded-3xl rounded-tl-lg'} px-4 py-2">
                     ${content}
                 </div>
-                <div class="text-xs text-slate-500 mt-1">${timestamp}</div>
+                <div class="text-xs text-gray-500 mt-1">${timestamp}</div>
             </div>
         </div>
     `;
@@ -492,13 +544,19 @@ function sendMessage() {
     
     if (!msg || !ws || ws.readyState !== WebSocket.OPEN) {
         if (!msg) showNotification('Type a message first!', 'warning');
-        if (!ws || ws.readyState !== WebSocket.OPEN) showNotification('Not connected', 'error');
+        if (!ws || ws.readyState !== WebSocket.OPEN) {
+            showNotification('Not connected to chat', 'error');
+            console.error('❌ WebSocket not open:', ws?.readyState);
+        }
         return;
     }
     
     const msgId = 'msg_' + Date.now();
     pendingMessageIds.add(msgId);
     
+    console.log(`🔊 SENDING MESSAGE:  Room: ${currentRoom}, User: ${currentUser}, Content: "${msg.substring(0, 40)}", MsgID: ${msgId}`);
+    
+    // Display message locally immediately (optimistic UI update)
     const localMessage = {
         id: msgId,
         message_id: msgId,
@@ -532,17 +590,17 @@ function showNotification(text, type = 'success') {
     if (!toast) return;
     
     textEl.textContent = text;
-    toast.classList.remove('hidden', 'bg-green-500', 'bg-red-500', 'bg-yellow-500');
+    toast.classList.remove('hidden', 'bg-emerald-500', 'bg-red-500', 'bg-yellow-500');
     
     if (type === 'success') {
         icon.className = 'fas fa-check-circle';
-        toast.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-600');
+        toast.classList.add('bg-emerald-500');
     } else if (type === 'error') {
         icon.className = 'fas fa-exclamation-circle';
-        toast.classList.add('bg-gradient-to-r', 'from-red-500', 'to-pink-600');
+        toast.classList.add('bg-red-500');
     } else if (type === 'warning') {
         icon.className = 'fas fa-info-circle';
-        toast.classList.add('bg-gradient-to-r', 'from-yellow-500', 'to-orange-600');
+        toast.classList.add('bg-yellow-500');
     }
     
     setTimeout(() => closeNotification(), 3000);
@@ -604,8 +662,8 @@ function showTypingIndicator(sender, isTyping) {
         if (!indicator) {
             indicator = document.createElement('div');
             indicator.id = 'typing-indicator';
-            indicator.className = 'flex items-center gap-2 text-slate-400 text-sm';
-            indicator.innerHTML = '<span>Someone is typing</span><span class="inline-flex gap-1"><span class="animate-bounce">•</span><span class="animate-bounce delay-100">•</span><span class="animate-bounce delay-200">•</span></span>';
+            indicator.className = 'flex items-center gap-2 text-gray-400 text-sm';
+            indicator.innerHTML = '<span>Someone is typing</span><span class="inline-flex gap-1"><span>•</span><span>•</span><span>•</span></span>';
             container.appendChild(indicator);
         }
     } else if (indicator) {
@@ -615,7 +673,7 @@ function showTypingIndicator(sender, isTyping) {
 
 // Update user status
 function updateUserStatus(sender, isOnline) {
-    document.getElementById('chat-status').textContent = isOnline ? '🟢 Online' : '⚫ Away';
+    document.getElementById('chat-status').textContent = isOnline ? '🟢 Online' : '⚫ Offline';
 }
 
 // File upload
@@ -629,6 +687,7 @@ async function handleFileUpload() {
         const msgId = 'msg_' + Date.now();
         pendingMessageIds.add(msgId);
         
+        // Display file locally first (optimistic UI)
         const localMessage = {
             id: msgId,
             message_id: msgId,
@@ -697,6 +756,7 @@ function capturePhoto() {
             const filename = `photo_${Date.now()}.jpg`;
             pendingMessageIds.add(msgId);
             
+            // Display photo locally first (optimistic UI)
             const localMessage = {
                 id: msgId,
                 message_id: msgId,
@@ -729,14 +789,18 @@ function capturePhoto() {
 // Emoji Picker
 const emojis = [
     '😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂',
-    '😊', '😇', '🙂', '🙃', '😉', '😌', '😍', '🥰',
+    '😊', '😇', '🙂', '🙃', '😉', '😌', '�', '🥰',
     '😘', '😗', '😚', '😙', '🥲', '😋', '😛', '😜',
     '🤪', '😝', '🤑', '🤗', '🤭', '🤫', '🤔', '🤐',
     '🤨', '😐', '😑', '😶', '😏', '😒', '🙄', '😬',
-    '🤥', '😌', '😔', '😪', '🤤', '😴', '😷', '🤒',
-    '🤕', '🤢', '🤮', '🤧', '🤬', '🤡', '😈', '👿',
-    '💀', '☠', '💩', '👹', '👺', '👻', '👽', '👾',
-    '🤖', '😺', '😸', '😹', '😻', '😼', '😽', '🙀'
+    '🤥', '😪', '🤤', '😴', '😷', '🤒', '🤕', '🤢',
+    '🤮', '🤧', '🤬', '😈', '👿', '💀', '☠', '💩',
+    '👹', '👺', '👻', '👽', '👾', '🤖', '😺', '😸',
+    '😹', '😻', '😼', '😽', '🙀', '😿', '😾', '👋',
+    '🤚', '🖐', '✋', '🖖', '👌', '🤌', '🤏', '✌',
+    '🤞', '🫰', '🤟', '🤘', '🤙', '👍', '👎', '✊',
+    '👊', '🤛', '🤜', '👏', '🙌', '👐', '🤲', '🤝',
+    '❤', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍'
 ];
 
 function initializeEmojiPicker() {
@@ -747,7 +811,7 @@ function initializeEmojiPicker() {
     emojis.forEach(emoji => {
         const btn = document.createElement('button');
         btn.textContent = emoji;
-        btn.className = 'text-2xl hover:bg-slate-700 p-2 rounded-lg transition cursor-pointer';
+        btn.className = 'text-3xl hover:bg-emerald-500/20 p-2 rounded-lg transition cursor-pointer';
         btn.onclick = () => insertEmoji(emoji);
         emojiGrid.appendChild(btn);
     });
@@ -774,27 +838,40 @@ function insertEmoji(emoji) {
 
 // Profile modal
 async function openProfileModal() {
+    console.log('Opening profile modal...');
     const modal = document.getElementById('profile-modal');
     const avatarEl = document.getElementById('profile-avatar');
     const statusEl = document.getElementById('status-input');
     
+    // Ensure elements exist
     if (!avatarEl || !statusEl || !modal) {
+        console.error('Profile modal elements not found');
         alert('Profile elements not found!');
         return;
     }
     
+    // Load latest profile data
     try {
         const resp = await fetch('/api/profile/', { credentials: 'include' });
         if (resp.ok) {
             const data = await resp.json();
             avatarEl.src = data.avatar || '/static/images/default-avatar.jpg';
             statusEl.value = data.status || 'Available';
+            console.log('✅ Profile data loaded:', data);
+        } else {
+            console.warn('Profile fetch returned:', resp.status);
+            avatarEl.src = '/static/images/default-avatar.jpg';
+            statusEl.value = 'Available';
         }
     } catch (err) {
-        console.error('Error:', err);
+        console.error('Error fetching profile:', err);
+        avatarEl.src = '/static/images/default-avatar.jpg';
+        statusEl.value = 'Available';
     }
     
+    // Show modal
     modal.classList.remove('hidden');
+    console.log('✅ Profile modal opened');
 }
 
 function closeProfileModal() {
@@ -838,18 +915,21 @@ async function saveProfile() {
         const data = await resp.json();
         
         if (data.success) {
-            showNotification('Profile updated!', 'success');
+            alert('Profile updated!');
             closeProfileModal();
             loadUsers();
         }
     } catch (err) {
-        console.error('Error:', err);
-        showNotification('Error saving profile', 'error');
+        console.error('Error saving profile:', err);
+        alert('Error saving profile');
     }
 }
 
 // Load profile on page load
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Page loaded, initializing chat...');
+    
+    // Set online status first
     try {
         await fetch('/api/online-status/', {
             method: 'POST',
@@ -860,19 +940,50 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
             body: JSON.stringify({is_online: true}),
         });
+        console.log('✅ Online status set');
     } catch (err) {
-        console.error('Error:', err);
+        console.error('Error setting online status:', err);
     }
     
+    // Load and display profile
     try {
+        const resp = await fetch('/api/profile/', { credentials: 'include' });
+        if (resp.ok) {
+            const data = await resp.json();
+            const avatarEl = document.getElementById('profile-avatar');
+            const statusEl = document.getElementById('status-input');
+            
+            if (avatarEl) {
+                avatarEl.src = data.avatar || '/static/images/default-avatar.jpg';
+                console.log('✅ Profile avatar loaded:', avatarEl.src);
+            }
+            if (statusEl) {
+                statusEl.value = data.status || 'Available';
+                console.log('✅ Profile status loaded:', statusEl.value);
+            }
+            
+            console.log('✅ Profile loaded:', data);
+        } else {
+            console.warn('Profile fetch returned:', resp.status);
+        }
+    } catch (err) {
+        console.error('Error loading profile:', err);
+    }
+    
+    // Show Users tab by default and load user list
+    try {
+        console.log('Loading users list...');
         await loadUsers();
         showUsersTab();
+        console.log('✅ Users loaded and tab shown');
     } catch (err) {
-        console.error('Error:', err);
+        console.error('Error loading users:', err);
     }
     
+    // Initialize emoji picker
     initializeEmojiPicker();
     
+    // Close emoji picker when clicking outside
     document.addEventListener('click', (e) => {
         const emojiModal = document.getElementById('emoji-picker-modal');
         const emojiBtn = document.getElementById('emoji-btn');
@@ -883,7 +994,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
     
-    showNotification('Welcome to Inderbara Chat! 🚀', 'success');
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Ctrl+Shift+F = Send file
+        if (e.ctrlKey && e.shiftKey && e.key === 'F') {
+            e.preventDefault();
+            document.getElementById('file-btn')?.click();
+        }
+        // Ctrl+Shift+C = Camera
+        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+            e.preventDefault();
+            document.getElementById('camera-btn')?.click();
+        }
+        // Ctrl+Shift+E = Emoji
+        if (e.ctrlKey && e.shiftKey && e.key === 'E') {
+            e.preventDefault();
+            document.getElementById('emoji-btn')?.click();
+        }
+    });
+    
+    // Show welcome notification
+    showNotification('Welcome to Inderbara Chat!', 'success');
 });
 
 // Set offline when leaving
@@ -901,9 +1032,8 @@ window.addEventListener('beforeunload', () => {
 </script>
 
 <style>
-/* Smooth scrollbar */
 #chat-container::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 #chat-container::-webkit-scrollbar-track {
@@ -911,12 +1041,12 @@ window.addEventListener('beforeunload', () => {
 }
 
 #chat-container::-webkit-scrollbar-thumb {
-    background: rgba(59, 130, 246, 0.3);
-    border-radius: 3px;
+    background: #10b981;
+    border-radius: 4px;
 }
 
 #chat-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(59, 130, 246, 0.6);
+    background: #059669;
 }
 
 /* Animations */
@@ -931,16 +1061,50 @@ window.addEventListener('beforeunload', () => {
     }
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
 .animate-slideInUp {
     animation: slideInUp 0.3s ease-out;
 }
 
-.delay-100 {
-    animation-delay: 100ms;
+.animate-fadeIn {
+    animation: fadeIn 0.2s ease-out;
 }
 
-.delay-200 {
-    animation-delay: 200ms;
+/* Scrollbar styling for other elements */
+.overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.3);
+    border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(16, 185, 129, 0.6);
+}
+
+/* Tooltip styling */
+.group:hover .group-hover\:opacity-100 {
+    transition: opacity 0.2s ease-out;
+}
+
+/* Message input focus state */
+#message-input:focus {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1), 0 0 0 2px #10b981;
 }
 </style>
 {% endblock %}
